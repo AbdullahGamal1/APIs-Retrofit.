@@ -10,10 +10,10 @@ void initGetIt() {
   getIt.registerLazySingleton<MyCubit>(() => MyCubit(getIt()));
   getIt.registerLazySingleton<MyRepo>(() => MyRepo(getIt()));
   getIt.registerLazySingleton<WebServices>(
-      () => WebServices(CreatAndSetupDio()));
+      () => WebServices(createAndSetupDio()));
 }
 
-Dio CreatAndSetupDio() {
+Dio createAndSetupDio() {
   Dio dio = Dio();
   // dio
   //   ..options.connectTimeout = 1 * 1000
@@ -21,11 +21,13 @@ Dio CreatAndSetupDio() {
   // ..options.connectTimeout = (1 * 1000) as Duration
   // ..options.receiveTimeout = (10 * 1000) as Duration ;
   dio.interceptors.add(LogInterceptor(
-      requestBody: true,
-      error: true,
-      request: true,
-      requestHeader: false,
-      responseHeader: false));
+    requestBody: true,
+    error: true,
+    request: true,
+    requestHeader: false,
+    responseHeader: false,
+    responseBody: true,
+  ));
 
   return dio;
 }
